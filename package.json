@@ -1,0 +1,29 @@
+{
+  "name": "qingliao",
+  "version": "1.0.0",
+  "description": "轻聊社区",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erdongjun/qingliao.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erdongjun/qingliao/issues"
+  },
+  "homepage": "https://github.com/erdongjun/qingliao#readme",
+  "dependencies": {
+    "koa": "^2.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.4"
+  }
+}
