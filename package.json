@@ -4,6 +4,7 @@
   "description": "轻聊社区",
   "main": "index.js",
   "scripts": {
+    "dev": "NODE_ENV=local nodemon ./server/start.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,13 +18,26 @@
   },
   "homepage": "https://github.com/erdongjun/qingliao#readme",
   "dependencies": {
-    "koa": "^2.6.2"
+    "ejs": "^2.6.1",
+    "glob": "^7.1.3",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compose": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.5",
+    "mysql": "^2.16.0",
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "eslint": "^5.12.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint-plugin-react": "^7.12.4",
+    "nodemon": "^1.18.9"
   }
 }
