@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>用户登陆</title>
+</head>
+<body>
+  <h2>用户登陆</h2>
+  <form action="/admin/user/login" method="post">
+    <label for="name"> 用户名 <input type="text" name='name'  > </label>
+    <label for="password"> 密码 <input type="password" name='password'  > </label>
+    <label for="nick_name:"> 昵称 <input type="text" name='nick_name'  > </label>
+    <button type="submit">提交</button>
+  </form>
+  <ul>
+    {{#each list}}
+     <li>{{@index}} 索引 {{this.nickname}}-{{this.update_time}}--{{this.create_time}}</li>
+    {{/each}}
+  </ul>
+</body>
+</html>

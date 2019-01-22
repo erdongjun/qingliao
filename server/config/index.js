@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 17:48:13
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-19 19:53:44
+ * @Last Modified time: 2019-01-22 13:42:27
  */
 
 // 当前环境
@@ -40,7 +40,7 @@ const dbConfig = {
 // 项目配置
 const config = {
   // 服务器端口号
-  port: 3001,
+  port: 3000,
   dbConfig: dbConfig[Env],
   isPro,
   isDev,
