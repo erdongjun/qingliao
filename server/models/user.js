@@ -2,40 +2,47 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-22 11:26:29
+ * @Last Modified time: 2019-01-27 16:16:24
  */
-// 用户信息表
+// 用户账号表
 import sequelize from 'sequelize';
 
 import moment from 'moment';
 import { Sequelize, hash } from '../utils';
 
-const User = Sequelize.define('user', {
+const Model = Sequelize.define('user', {
   name: {
     type: sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isAlphanumeric: true,
-      notEmpty: true,
-      len: [4, 20],
+    unique: {
+      args: true,
+      msg: '用户名已被使用',
     },
-  },
-  nick_name: {
-    type: sequelize.STRING,
-    allowNull: false,
-    unique: true,
     validate: {
-      notEmpty: true,
-      len: [2, 20],
+      isAlphanumeric: {
+        args: true,
+        msg: '用户名只允许使用字母和数字',
+      },
+      notEmpty: {
+        args: true,
+        msg: '用户名不能为空',
+      },
+      len: {
+        args: [6, 20],
+        msg: '用户名长度6-20位',
+      },
     },
   },
   password: {
     type: sequelize.STRING,
-    allowNull: false,
     validate: {
-      notEmpty: true,
-      isAlphanumeric: true,
+      notEmpty: {
+        args: true,
+        msg: '密码不能为空',
+      },
+      isAlphanumeric: {
+        args: true,
+        msg: '密码只允许使用字母和数字',
+      },
     },
   },
   create_time: sequelize.BIGINT,
@@ -45,26 +52,33 @@ const User = Sequelize.define('user', {
 // 创建账号
 const userModel = {
   // 查询
-  getUserlist: async () => User.findAll({
+  getUserlist: async () => Model.findAll({
     limit: 5,
     raw: true,
   }),
   // 创建账号
-  creatUser: async user => User.create({
+  creatUser: async user => Model.create({
     name: user.name,
-    nick_name: user.nick_name,
     password: `${hash(user.password)}`,
     create_time: moment().unix(),
     update_time: moment().unix(),
   }),
-  updateUser: async () => User.update({
-    nick_name: `nick${Math.floor(Math.random() * 1000)}`,
+  // 账号更新
+  updateUser: async () => Model.update({
     update_time: moment().unix(),
   }, {
     where: {
       id: 1050,
     },
   }),
+  // 验证用户账号密码
+  validateUser: async user => Model.findOne({
+    where: {
+      name: user.name,
+      password: `${hash(user.password)}`,
+    },
+  })
+  ,
 };
 
 
