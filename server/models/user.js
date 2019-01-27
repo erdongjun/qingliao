@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-27 16:16:24
+ * @Last Modified time: 2019-01-27 17:58:01
  */
 // 用户账号表
 import sequelize from 'sequelize';
@@ -11,6 +11,10 @@ import moment from 'moment';
 import { Sequelize, hash } from '../utils';
 
 const Model = Sequelize.define('user', {
+  id: {
+    primaryKey: true,
+    type: sequelize.BIGINT,
+  },
   name: {
     type: sequelize.STRING,
     unique: {

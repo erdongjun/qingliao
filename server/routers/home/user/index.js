@@ -2,13 +2,12 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-27 17:26:05
+ * @Last Modified time: 2019-01-28 00:44:48
  */
 
 // 用户管理
 import Router from 'koa-router';
 import { validateUser, creatUser } from '../../../services';
-import userModel from '../../../models/user';
 import { routerInit } from '../../../utils';
 
 
