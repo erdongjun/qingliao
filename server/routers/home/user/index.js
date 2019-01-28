@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-28 00:44:48
+ * @Last Modified time: 2019-01-28 21:20:53
  */
 
 // 用户管理
@@ -20,7 +20,7 @@ routers.post('/register', async (ctx) => {
   const { codeStatus, body } = routerInit(ctx);
   try {
     console.log(body);
-    const res = await creatUser(body);
+    const res = await createUser(body);
     if (!res.status) {
       codeStatus.code = 400;
       codeStatus.msg = res.msg;

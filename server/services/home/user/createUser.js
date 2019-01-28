@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-27 16:12:23
+ * @Last Modified time: 2019-01-28 21:21:27
  */
 import userModel from '../../../models/user';
 import userInfoModel from '../../../models/user_info';
@@ -11,7 +11,7 @@ import userInfoModel from '../../../models/user_info';
 // 创建账号以及初始化默认信息
 export default async (data) => {
   // 创建账号
-  const result = await userModel.creatUser(data)
+  const result = await userModel.createUser(data)
     .then(res => ({
       status: 1,
       data: res,

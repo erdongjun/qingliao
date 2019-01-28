@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-27 17:58:01
+ * @Last Modified time: 2019-01-28 21:21:45
  */
 // 用户账号表
 import sequelize from 'sequelize';
@@ -61,7 +61,7 @@ const userModel = {
     raw: true,
   }),
   // 创建账号
-  creatUser: async user => Model.create({
+  createUser: async user => Model.create({
     name: user.name,
     password: `${hash(user.password)}`,
     create_time: moment().unix(),

@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-27 16:15:01
+ * @Last Modified time: 2019-01-28 23:00:30
  */
 // 用户基本信息表
 import sequelize from 'sequelize';
@@ -71,13 +71,15 @@ const userInfoModel = {
     create_time: moment().unix(),
     update_time: moment().unix(),
   }),
-  // 查询用户信息
+  // 查询指定用户信息
   getUserInfo: async data => Model.findOne({
     where: {
       uid: data.uid,
     },
     attributes: data.attributes,
   }),
+  // 批量查询用户
+  getUserList: async data => Model.findAll(data),
 };
 
 

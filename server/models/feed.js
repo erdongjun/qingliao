@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-27 18:06:28
+ * @Last Modified time: 2019-01-29 00:01:18
  */
 // 用户动态表
 import sequelize from 'sequelize';
@@ -42,7 +42,7 @@ const Model = Sequelize.define('feed', {
     type: sequelize.STRING,
     validate: {
       len: {
-        args: [1, 6000],
+        args: [0, 6000],
         msg: '图片太多啦',
       },
     },
@@ -50,19 +50,25 @@ const Model = Sequelize.define('feed', {
   status: {
     type: sequelize.BIGINT,
   },
+  rank: {
+    type: sequelize.BIGINT,
+  },
+  comment: {
+    type: sequelize.BIGINT,
+  },
+  zan: {
+    type: sequelize.BIGINT,
+  },
   create_time: sequelize.BIGINT,
   update_time: sequelize.BIGINT,
 });
 
 
-const userModel = {
+const feedModel = {
   // 查询列表
-  getUserlist: async () => Model.findAll({
-    limit: 5,
-    raw: true,
-  }),
+  getFeedList: async data => Model.findAll(data),
   // 创建动态
-  creatUser: async data => Model.create({
+  createFeed: async data => Model.create({
     uid: data.uid,
     content: data.content,
     imgs: data.imgs,
@@ -87,4 +93,4 @@ const userModel = {
 };
 
 
-export default userModel;
+export default feedModel;
