@@ -6,19 +6,19 @@
  */
 import moment from 'moment';
 import { Op } from 'sequelize';
-import feedModel from '../../../models/feed';
+import articleModel from '../../../models/article';
 import userInfoModel from '../../../models/user_info';
 
 
-// 查询动态列表分页
+// 查询文章列表分页
 export default async (data) => {
   const { pn = 1, limit = 20 } = data;
   const offset = (pn - 1) * limit;
-  const feeds = await feedModel.getFeedList({
+  const feeds = await articleModel.getArticleList({
     limit: Number(limit),
     offset,
     order: [['id', 'DESC']],
-    attributes: ['id', 'uid', 'content', 'imgs', 'rank', 'comment', 'zan', 'create_time'],
+    attributes: ['id', 'uid', 'content', 'title', 'rank', 'comment', 'zan', 'create_time'],
     raw: true,
   });
   const uidArr = [];
@@ -47,8 +47,6 @@ export default async (data) => {
         info.nick_name = sub.nick_name;
         info.avatar = sub.avatar;
         info.des = sub.des;
-        // 处理图片
-        info.imgs = info.imgs ? info.imgs.split('|') : [];
         list.push(info);
       }
     });

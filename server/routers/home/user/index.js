@@ -7,7 +7,7 @@
 
 // 用户管理
 import Router from 'koa-router';
-import { validateUser, creatUser } from '../../../services';
+import { validateUser, createUser } from '../../../services';
 import { routerInit } from '../../../utils';
 
 

@@ -17,6 +17,13 @@ export { default as validateUser } from './home/user/validateUser';
 // feed动态
 
 // 创建动态
-export { default as creatFeed } from './home/feed/creatFeed';
+export { default as creatFeed } from './home/feed/createFeed';
 // 查询动态分页
 export { default as getFeedList } from './home/feed/getFeedList';
+
+// article文章
+
+// 创建文章
+export { default as createArticle } from './home/article/createArticle';
+// 查询文章分页
+export { default as getArticleList } from './home/article/getArticleList';
