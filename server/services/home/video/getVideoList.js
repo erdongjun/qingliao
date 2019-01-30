@@ -6,21 +6,19 @@
  */
 import moment from 'moment';
 import { Op } from 'sequelize';
-import articleModel from '../../../models/article';
+import videoModel from '../../../models/video';
 import userInfoModel from '../../../models/user_info';
 
 
-// 查询文章列表分页
+// 查询视频列表分页
 export default async (data) => {
-  // 内容换行
-  const reg=new RegExp("<br>","g")
   const { pn = 1, limit = 20 } = data;
   const offset = (pn - 1) * limit;
-  const feeds = await articleModel.getArticleList({
+  const feeds = await videoModel.getVideoList({
     limit: Number(limit),
     offset,
     order: [['id', 'DESC']],
-    attributes: ['id', 'uid', 'content', 'title', 'rank', 'comment', 'zan', 'create_time'],
+    attributes: ['id', 'uid', 'content', 'title','pic', 'rank', 'comment', 'zan', 'create_time'],
     raw: true,
   });
   const uidArr = [];
@@ -49,7 +47,7 @@ export default async (data) => {
         info.nick_name = sub.nick_name;
         info.avatar = sub.avatar;
         info.des = sub.des;
-        info.content = info.content.replace(reg,"\n");
+        info.content = info.content;
         list.push(info);
       }
     });

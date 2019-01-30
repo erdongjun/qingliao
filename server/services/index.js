@@ -27,3 +27,10 @@ export { default as getFeedList } from './home/feed/getFeedList';
 export { default as createArticle } from './home/article/createArticle';
 // 查询文章分页
 export { default as getArticleList } from './home/article/getArticleList';
+
+// video视频
+
+// 创建文章
+export { default as createVideo } from './home/video/createVideo';
+// 查询文章分页
+export { default as getVideoList } from './home/video/getVideoList';

@@ -25,7 +25,6 @@ routers.post('/add', async (ctx) => {
         imgs: body.imgs || '',
         content: body.content || '',
       };
-      console.log(data);
       const res = await creatFeed(data);
       if (res.status) {
         codeStatus.msg = '发布成功';
@@ -38,8 +37,6 @@ routers.post('/add', async (ctx) => {
       codeStatus.msg = 'uid不存在';
     }
   } catch (error) {
-    console.log(error);
-
     codeStatus.code = 500;
     codeStatus.msg = '动态发布出错了';
   } finally {

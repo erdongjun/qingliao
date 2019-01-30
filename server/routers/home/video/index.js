@@ -7,15 +7,15 @@
 
 // 用户动态
 import Router from 'koa-router';
-import { createArticle, getArticleList } from '../../../services';
+import { createVideo, getVideoList } from '../../../services';
 import { routerInit } from '../../../utils';
 
 
 const routers = new Router({
-  prefix: '/home/article',
+  prefix: '/home/video',
 });
 
-// 用户发布文章
+// 用户发布视频
 routers.post('/add', async (ctx) => {
   const { codeStatus, body, uid } = routerInit(ctx);
   try {
@@ -24,8 +24,9 @@ routers.post('/add', async (ctx) => {
         uid: Number(uid),
         title: body.title,
         content: body.content,
+        pic: body.pic,
       };
-      const res = await createArticle(data);
+      const res = await createVideo(data);
       if (res.status) {
         codeStatus.msg = '发布成功';
       } else {
@@ -37,8 +38,9 @@ routers.post('/add', async (ctx) => {
       codeStatus.msg = 'uid不存在';
     }
   } catch (error) {
+    console.log(error);
     codeStatus.code = 500;
-    codeStatus.msg = '文章发布出错了';
+    codeStatus.msg = '视频发布出错了';
   } finally {
     ctx.body = codeStatus;
   }
@@ -47,11 +49,11 @@ routers.post('/add', async (ctx) => {
 routers.get('/list', async (ctx) => {
   const { codeStatus, query } = routerInit(ctx);
   try {
-    const res = await getArticleList(query);
+    const res = await getVideoList(query);
     codeStatus.data = res;
   } catch (error) {
     codeStatus.code = 500;
-    codeStatus.msg = '文章分页出错了';
+    codeStatus.msg = '视频分页出错了';
   } finally {
     ctx.body = codeStatus;
   }

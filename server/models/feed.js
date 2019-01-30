@@ -70,7 +70,8 @@ const feedModel = {
   // 创建动态
   createFeed: async data => Model.create({
     uid: data.uid,
-    content: data.content,
+    // 处理换行问题
+    content: data.content.replace(/\n|\r\n/g,"<br>"),
     imgs: data.imgs,
     create_time: moment().unix(),
     update_time: moment().unix(),
