@@ -45,8 +45,12 @@ routers.post('/add', async (ctx) => {
 });
 // 分页请求
 routers.get('/list', async (ctx) => {
-  const { codeStatus, query } = routerInit(ctx);
+  const { codeStatus, query, uid, } = routerInit(ctx);
   try {
+    if (query.type ==='myfeed'){
+      query.uid=uid
+      delete query.type
+    }
     const res = await getFeedList(query);
     codeStatus.data = res;
   } catch (error) {

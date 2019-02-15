@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-28 21:21:45
+ * @Last Modified time: 2019-02-15 12:51:47
  */
 // 用户账号表
 import sequelize from 'sequelize';
@@ -53,9 +53,9 @@ const Model = Sequelize.define('user', {
   update_time: sequelize.BIGINT,
 });
 
-// 创建账号
+// 用户表
 const userModel = {
-  // 查询
+  // 查询列表
   getUserlist: async () => Model.findAll({
     limit: 5,
     raw: true,

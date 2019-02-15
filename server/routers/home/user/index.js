@@ -2,12 +2,12 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-28 21:20:53
+ * @Last Modified time: 2019-02-15 13:12:17
  */
 
 // 用户管理
 import Router from 'koa-router';
-import { validateUser, createUser } from '../../../services';
+import { validateUser, createUser, getUser } from '../../../services';
 import { routerInit } from '../../../utils';
 
 
@@ -65,6 +65,31 @@ routers.post('/login', async (ctx) => {
   } catch (error) {
     codeStatus.code = 500;
     codeStatus.msg = '登录出错了';
+  } finally {
+    ctx.body = codeStatus;
+  }
+});
+// 获取用户数据
+routers.get('/data', async (ctx) => {
+  const { codeStatus, uid } = routerInit(ctx);
+  try {
+    if (uid) {
+      const res = await getUser(uid);
+      if (!res) {
+        codeStatus.code = 400;
+        codeStatus.msg = '账号密码错误';
+      } else {
+        // 查询用户的昵称
+        // 返回用户名uid
+        codeStatus.data = res;
+      }
+    } else {
+      codeStatus.code = 400;
+      codeStatus.msg = 'uid不存在';
+    }
+  } catch (error) {
+    codeStatus.code = 500;
+    codeStatus.msg = '获取用户信息出错';
   } finally {
     ctx.body = codeStatus;
   }
