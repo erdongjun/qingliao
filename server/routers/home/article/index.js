@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-28 21:43:17
+ * @Last Modified time: 2019-02-16 19:54:16
  */
 
 // 用户动态
@@ -45,8 +45,12 @@ routers.post('/add', async (ctx) => {
 });
 // 分页请求
 routers.get('/list', async (ctx) => {
-  const { codeStatus, query } = routerInit(ctx);
+  const { codeStatus, query, uid } = routerInit(ctx);
   try {
+    if (query.type === 'myarticle') {
+      query.uid = uid;
+      delete query.type;
+    }
     const res = await getArticleList(query);
     codeStatus.data = res;
   } catch (error) {
