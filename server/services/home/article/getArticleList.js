@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-29 00:50:13
+ * @Last Modified time: 2019-02-23 18:03:26
  */
 import moment from 'moment';
 import { Op } from 'sequelize';
@@ -13,16 +13,22 @@ import userInfoModel from '../../../models/user_info';
 // 查询文章列表分页
 export default async (data) => {
   // 内容换行
-  const reg=new RegExp("<br>","g")
+  const reg = new RegExp('<br>', 'g');
   const { pn = 1, limit = 20 } = data;
   const offset = (pn - 1) * limit;
-  const feeds = await articleModel.getArticleList({
+  const option = {
     limit: Number(limit),
     offset,
+    where: {},
     order: [['id', 'DESC']],
     attributes: ['id', 'uid', 'content', 'title', 'rank', 'comment', 'zan', 'create_time'],
     raw: true,
-  });
+  };
+  // 指定id查询
+  if (data && data.uid) {
+    option.where.uid = data.uid;
+  }
+  const feeds = await articleModel.getArticleList(option);
   const uidArr = [];
   feeds.forEach((item) => {
     const uid = Number(item.uid);
@@ -49,7 +55,7 @@ export default async (data) => {
         info.nick_name = sub.nick_name;
         info.avatar = sub.avatar;
         info.des = sub.des;
-        info.content = info.content.replace(reg,"\n");
+        info.content = info.content.replace(reg, '\n');
         list.push(info);
       }
     });

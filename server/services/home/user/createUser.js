@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-28 21:21:27
+ * @Last Modified time: 2019-02-23 17:41:51
  */
 import userModel from '../../../models/user';
 import userInfoModel from '../../../models/user_info';
@@ -20,6 +20,8 @@ export default async (data) => {
       status: 0,
       msg: err.errors[0].message,
     }));
+
+  console.log(result);
   // 创建出错返回创建账号信息
   if (!result.status) {
     return result;

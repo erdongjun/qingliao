@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-29 00:50:13
+ * @Last Modified time: 2019-02-23 18:04:20
  */
 import moment from 'moment';
 import { Op } from 'sequelize';
@@ -14,13 +14,19 @@ import userInfoModel from '../../../models/user_info';
 export default async (data) => {
   const { pn = 1, limit = 20 } = data;
   const offset = (pn - 1) * limit;
-  const feeds = await videoModel.getVideoList({
+  const option = {
     limit: Number(limit),
     offset,
+    where: {},
     order: [['id', 'DESC']],
-    attributes: ['id', 'uid', 'content', 'title','pic', 'rank', 'comment', 'zan', 'create_time'],
+    attributes: ['id', 'uid', 'content', 'title', 'pic', 'rank', 'comment', 'zan', 'create_time'],
     raw: true,
-  });
+  };
+  // 指定id查询
+  if (data && data.uid) {
+    option.where.uid = data.uid;
+  }
+  const feeds = await videoModel.getVideoList(option);
   const uidArr = [];
   feeds.forEach((item) => {
     const uid = Number(item.uid);

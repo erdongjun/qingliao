@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-02-16 19:54:04
+ * @Last Modified time: 2019-02-23 18:00:38
  */
 
 // 用户动态
@@ -48,12 +48,14 @@ routers.get('/list', async (ctx) => {
   const { codeStatus, query, uid } = routerInit(ctx);
   try {
     if (query.type === 'myfeed') {
+      console.log(uid);
       query.uid = uid;
       delete query.type;
     }
     const res = await getFeedList(query);
     codeStatus.data = res;
   } catch (error) {
+    console.log(error);
     codeStatus.code = 500;
     codeStatus.msg = '动态分页出错了';
   } finally {
