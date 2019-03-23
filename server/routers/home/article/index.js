@@ -2,12 +2,12 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-02-16 19:54:16
+ * @Last Modified time: 2019-03-23 13:07:10
  */
 
 // 用户动态
 import Router from 'koa-router';
-import { createArticle, getArticleList } from '../../../services';
+import { createArticle, getArticleList, getArticleDetail } from '../../../services';
 import { routerInit } from '../../../utils';
 
 
@@ -56,6 +56,28 @@ routers.get('/list', async (ctx) => {
   } catch (error) {
     codeStatus.code = 500;
     codeStatus.msg = '文章分页出错了';
+  } finally {
+    ctx.body = codeStatus;
+  }
+});
+
+// 文章详情
+routers.get('/:id', async (ctx) => {
+  const { codeStatus, query, uid } = routerInit(ctx);
+  const { id } = ctx.params
+  try {
+    const res = await getArticleDetail(id);
+    console.log(res)
+    if(res){
+      codeStatus.data = res;
+    }else{
+      codeStatus.code = 400;
+      codeStatus.msg = '文章不存在';
+    }
+  } catch (error) {
+    console.log(error)
+    codeStatus.code = 500;
+    codeStatus.msg = '文章详情出错了';
   } finally {
     ctx.body = codeStatus;
   }

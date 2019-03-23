@@ -2,11 +2,11 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-02-23 18:02:17
+ * @Last Modified time: 2019-03-23 19:50:36
  */
 import moment from 'moment';
 import { Op } from 'sequelize';
-import feedModel from '../../../models/feed';
+import feedsModel from '../../../models/feeds';
 import userInfoModel from '../../../models/user_info';
 
 
@@ -19,16 +19,18 @@ export default async (data) => {
   const option = {
     limit: Number(limit),
     offset,
-    where: {},
+    where: {
+      type: data.type
+    },
     order: [['id', 'DESC']],
-    attributes: ['id', 'uid', 'content', 'imgs', 'rank', 'comment', 'zan', 'create_time'],
+    attributes: ['id', 'uid', 'content', 'imgs', 'video_pic', 'video', 'rank', 'comment', 'zan', 'create_time'],
     raw: true,
   };
   // 指定id查询
   if (data && data.uid) {
     option.where.uid = data.uid;
   }
-  const feeds = await feedModel.getFeedList(option);
+  const feeds = await feedsModel.getFeedsList(option);
   const uidArr = [];
   feeds.forEach((item) => {
     const uid = Number(item.uid);

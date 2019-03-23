@@ -2,12 +2,12 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-03-05 20:10:28
+ * @Last Modified time: 2019-03-23 16:27:25
  */
 
 // 用户动态
 import Router from 'koa-router';
-import { creatFeed, getFeedList } from '../../../services';
+import { creatFeed, getFeedList, getFeedDetail } from '../../../services';
 import { routerInit } from '../../../utils';
 
 
@@ -62,6 +62,27 @@ routers.get('/list', async (ctx) => {
     console.log(error);
     codeStatus.code = 500;
     codeStatus.msg = '动态分页出错了';
+  } finally {
+    ctx.body = codeStatus;
+  }
+});
+// 动态详情
+routers.get('/:id', async (ctx) => {
+  const { codeStatus, query, uid } = routerInit(ctx);
+  const { id } = ctx.params
+  try {
+    const res = await getFeedDetail(id);
+    console.log(res)
+    if(res){
+      codeStatus.data = res;
+    }else{
+      codeStatus.code = 400;
+      codeStatus.msg = '动态不存在';
+    }
+  } catch (error) {
+    console.log(error)
+    codeStatus.code = 500;
+    codeStatus.msg = '动态详情出错了';
   } finally {
     ctx.body = codeStatus;
   }

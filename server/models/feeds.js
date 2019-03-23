@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-29 00:01:18
+ * @Last Modified time: 2019-03-23 18:53:37
  */
 // 用户动态表
 import sequelize from 'sequelize';
@@ -10,7 +10,7 @@ import sequelize from 'sequelize';
 import moment from 'moment';
 import { Sequelize, hash } from '../utils';
 
-const Model = Sequelize.define('feed', {
+const Model = Sequelize.define('feeds', {
   id: {
     primaryKey: true,
     type: sequelize.BIGINT,
@@ -23,18 +23,49 @@ const Model = Sequelize.define('feed', {
         msg: 'uid不存在',
       },
     },
-
+  },
+  type: {
+    type: sequelize.BIGINT,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: '动态类型不能为空',
+      },
+    },
   },
   content: {
     type: sequelize.STRING,
     validate: {
-      notEmpty: {
-        args: true,
-        msg: '内容不能为空',
-      },
       len: {
-        args: [1, 300],
+        args: [0, 60000],
         msg: '内容太多啦',
+      },
+    },
+  },
+  video: {
+    type: sequelize.STRING,
+    validate: {
+      len: {
+        args: [0, 6000],
+        msg: '视频地址不合法',
+      },
+    },
+  },
+  video_pic: {
+    type: sequelize.STRING,
+    validate: {
+      len: {
+        args: [0, 6000],
+        msg: '视频封面地址不合法',
+      },
+    },
+  },
+  title: {
+    type: sequelize.STRING,
+    validate: {
+      len: {
+        args: [0, 100],
+        msg: '标题过长',
       },
     },
   },
@@ -64,15 +95,19 @@ const Model = Sequelize.define('feed', {
 });
 
 
-const feedModel = {
-  // 查询列表
-  getFeedList: async data => Model.findAll(data),
+const feedsModel = {
+  // 查询动态列表
+  getFeedsList: async data => Model.findAll(data),
   // 创建动态
-  createFeed: async data => Model.create({
+  createFeeds: async data => Model.create({
     uid: data.uid,
     // 处理换行问题
     content: data.content.replace(/\n|\r\n/g,"<br>"),
+    type: data.type || 1,
     imgs: data.imgs,
+    title: data.title || '',
+    video: data.video || '',
+    video_pic: data.video_pic || '',
     create_time: moment().unix(),
     update_time: moment().unix(),
   }),
@@ -85,13 +120,9 @@ const feedModel = {
     },
   }),
   // 查询动态详情
-  getfeed: async id => Model.findOne({
-    where: {
-      id,
-    },
-  })
-  ,
+  getFeeds: async option => Model.findOne(option),
+  
 };
 
 
-export default feedModel;
+export default feedsModel;
