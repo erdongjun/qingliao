@@ -2,10 +2,10 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-03-23 20:07:22
+ * @Last Modified time: 2019-03-30 14:20:10
  */
 import moment from 'moment';
-import feedsModel from '../../../models/feeds';
+import feedModel from '../../../models/feed';
 
 import userInfoModel from '../../../models/user_info';
 
@@ -17,11 +17,10 @@ export default async (id) => {
     where: {
       id
     },
-    attributes: ['id', 'uid', 'content', 'imgs', 'video_pic', 'video', 'rank', 'comment', 'zan', 'create_time'],
     raw: true,
   };
   
-  const feedInfo = await feedsModel.getFeeds(option);
+  const feedInfo = await feedModel.getFeed(option);
   if(!feedInfo){
     return false
   }
@@ -38,6 +37,7 @@ export default async (id) => {
   feedInfo.avatar = info.avatar;
   feedInfo.des = info.des;
   feedInfo.content = feedInfo.content.replace(reg, '\n');
-  feedInfo.imgs = feedInfo.imgs ? info.imgs.split('|') : [];
+  feedInfo.imgs = feedInfo.imgs  ? feedInfo.imgs.split('|') : [];
+
   return feedInfo || false;
 };

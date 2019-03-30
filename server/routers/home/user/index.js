@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-02-15 13:12:17
+ * @Last Modified time: 2019-03-30 16:55:02
  */
 
 // 用户管理
@@ -71,8 +71,9 @@ routers.post('/login', async (ctx) => {
 });
 // 获取用户数据
 routers.get('/data', async (ctx) => {
-  const { codeStatus, uid } = routerInit(ctx);
+  let { codeStatus, uid, query } = routerInit(ctx);
   try {
+    uid = query.uid ? query.uid : uid
     if (uid) {
       const res = await getUser(uid);
       if (!res) {
@@ -88,6 +89,8 @@ routers.get('/data', async (ctx) => {
       codeStatus.msg = 'uid不存在';
     }
   } catch (error) {
+
+    console.log(error)
     codeStatus.code = 500;
     codeStatus.msg = '获取用户信息出错';
   } finally {

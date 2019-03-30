@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-03-23 18:53:37
+ * @Last Modified time: 2019-03-30 17:59:51
  */
 // 用户动态表
 import sequelize from 'sequelize';
@@ -10,7 +10,7 @@ import sequelize from 'sequelize';
 import moment from 'moment';
 import { Sequelize, hash } from '../utils';
 
-const Model = Sequelize.define('feeds', {
+const Model = Sequelize.define('feed', {
   id: {
     primaryKey: true,
     type: sequelize.BIGINT,
@@ -90,16 +90,22 @@ const Model = Sequelize.define('feeds', {
   zan: {
     type: sequelize.BIGINT,
   },
+  tag_id: {
+    type: sequelize.BIGINT ,
+  },
+  cid: {
+    type: sequelize.BIGINT,
+  },
   create_time: sequelize.BIGINT,
   update_time: sequelize.BIGINT,
 });
 
 
-const feedsModel = {
+const feedModel = {
   // 查询动态列表
-  getFeedsList: async data => Model.findAll(data),
+  getFeedList: async data => Model.findAll(data),
   // 创建动态
-  createFeeds: async data => Model.create({
+  createFeed: async data => Model.create({
     uid: data.uid,
     // 处理换行问题
     content: data.content.replace(/\n|\r\n/g,"<br>"),
@@ -120,9 +126,9 @@ const feedsModel = {
     },
   }),
   // 查询动态详情
-  getFeeds: async option => Model.findOne(option),
+  getFeed: async option => Model.findOne(option),
   
 };
 
 
-export default feedsModel;
+export default feedModel;

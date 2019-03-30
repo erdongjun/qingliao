@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-03-23 16:27:25
+ * @Last Modified time: 2019-03-30 18:26:23
  */
 
 // 用户动态
@@ -24,6 +24,10 @@ routers.post('/add', async (ctx) => {
         uid: Number(uid),
         imgs: body.imgs || '',
         content: body.content || '',
+        title: body.title || '',
+        video: body.video || '',
+        video_pic: body.video_pic || '',
+        type: body.type || 1
       };
       const res = await creatFeed(data);
       if (res.status) {
@@ -37,6 +41,7 @@ routers.post('/add', async (ctx) => {
       codeStatus.msg = 'uid不存在';
     }
   } catch (error) {
+    console.log(error)
     codeStatus.code = 500;
     codeStatus.msg = '动态发布出错了';
   } finally {
@@ -48,15 +53,13 @@ routers.get('/list', async (ctx) => {
   const { codeStatus, query, uid } = routerInit(ctx);
   try {
     let list = [];
-    if (query.type === 'myfeed') {
-      if (uid) {
-        query.uid = uid;
-        delete query.type;
-        list = await getFeedList(query);
-      }
-    } else {
-      list = await getFeedList(query);
+    if ( Number(query.private ) && uid) {
+      query.uid = uid;
     }
+    if ( Number(query.private ) && Number(query.tid) ) {
+      query.uid = query.tid;
+    }
+    list = await getFeedList(query);
     codeStatus.data = list;
   } catch (error) {
     console.log(error);
@@ -68,7 +71,7 @@ routers.get('/list', async (ctx) => {
 });
 // 动态详情
 routers.get('/:id', async (ctx) => {
-  const { codeStatus, query, uid } = routerInit(ctx);
+  const { codeStatus } = routerInit(ctx);
   const { id } = ctx.params
   try {
     const res = await getFeedDetail(id);

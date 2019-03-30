@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 11:40:05
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-03-23 20:13:19
+ * @Last Modified time: 2019-03-30 18:16:43
  */
 
 // 公共数据操作
@@ -15,11 +15,20 @@ export { default as validateUser } from './home/user/validateUser';
 // 获取用户信息
 export { default as getUser } from './home/user/getUser';
 
-// feeds动态
+// feed动态
 
 // 创建动态
-export { default as creatFeeds } from './home/feeds/createFeeds';
+export { default as creatFeed } from './home/feed/createFeed';
 // 查询动态分页
-export { default as getFeedsList } from './home/feeds/getFeedsList';
+export { default as getFeedList } from './home/feed/getFeedList';
 // 查询动态详情
-export { default as getFeedsDetail } from './home/feeds/getFeedsDetail';
+export { default as getFeedDetail } from './home/feed/getFeedDetail';
+
+// cate分类
+
+// 创建分类
+export { default as createCate } from './home/cate/createCate';
+// 查询分类分页
+export { default as getCateList } from './home/cate/getCateList';
+// 查询分类详情
+export { default as getCateDetail } from './home/cate/getCateDetail';
