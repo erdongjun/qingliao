@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-03-30 17:59:51
+ * @Last Modified time: 2019-04-03 20:50:06
  */
 // 用户动态表
 import sequelize from 'sequelize';
@@ -117,13 +117,15 @@ const feedModel = {
     create_time: moment().unix(),
     update_time: moment().unix(),
   }),
-  // 动态状态更新
-  updateUser: async () => Model.update({
-    update_time: moment().unix(),
-  }, {
-    where: {
-      id: 1050,
-    },
+  
+  // 动态状态更新点赞
+  updateFeedZan: async (fid) => Model.update({
+    zan: sequelize.literal('`zan` +1'),
+    update_time: moment().unix()
+  },{
+    where:{
+      id:fid
+    }
   }),
   // 查询动态详情
   getFeed: async option => Model.findOne(option),

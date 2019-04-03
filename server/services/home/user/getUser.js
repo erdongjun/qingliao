@@ -2,10 +2,10 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-02-15 13:12:12
+ * @Last Modified time: 2019-04-02 19:58:13
  */
 import moment from 'moment';
-import userInfoModel from '../../../models/user_info';
+import userInfoModel from '../../../models/userInfo';
 
 // 获取用户信息
 export default async (uid) => {

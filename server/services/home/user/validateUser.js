@@ -2,10 +2,10 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-27 16:24:40
+ * @Last Modified time: 2019-04-02 19:58:16
  */
 import userModel from '../../../models/user';
-import userInfoModel from '../../../models/user_info';
+import userInfoModel from '../../../models/userInfo';
 
 
 // 验证用户登录信息是否正确

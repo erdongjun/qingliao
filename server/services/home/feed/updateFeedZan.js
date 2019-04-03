@@ -2,13 +2,14 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-04-02 20:36:04
+ * @Last Modified time: 2019-04-03 20:50:41
  */
-import cateModel from '../../../models/cate';
+import feedModel from '../../../models/feed';
 
-// 创建分类
-export default async (data) => {
-  const result = await cateModel.createCate(data)
+
+// 更新动态点赞
+export default async (fid) => {
+  const result = await feedModel.updateFeedZan(fid)
     .then(res => ({
       status: 1,
       data: res,

@@ -2,10 +2,10 @@
  * @Author: chenweizhi
  * @Date: 2019-01-27 14:22:20
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-02-23 17:41:51
+ * @Last Modified time: 2019-04-02 19:58:07
  */
 import userModel from '../../../models/user';
-import userInfoModel from '../../../models/user_info';
+import userInfoModel from '../../../models/userInfo';
 
 
 // 创建账号以及初始化默认信息

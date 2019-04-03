@@ -2,12 +2,12 @@
  * @Author: chenweizhi
  * @Date: 2019-01-19 18:10:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-03-30 18:26:18
+ * @Last Modified time: 2019-04-02 21:12:21
  */
 
 // 用户分类
 import Router from 'koa-router';
-import { createCate, getCateList, getCateDetail } from '../../../services';
+import { createUserCate, deleteUserCate,getCateList, getCateDetail } from '../../../services';
 import { routerInit } from '../../../utils';
 
 
@@ -15,18 +15,16 @@ const routers = new Router({
   prefix: '/home/cate',
 });
 
-// 用户创建分类
-routers.post('/add', async (ctx) => {
-  const { codeStatus, body, uid } = routerInit(ctx);
+// 用户关注分类
+routers.get('/focus/:cid', async (ctx) => {
+  const { codeStatus, uid, params } = routerInit(ctx);
   try {
     if (uid) {
       const data = {
         uid: Number(uid),
-        name: body.name || '',
-        des: body.des || '',
-        icon: body.icon || '',
+        cid: Number(params.cid),
       };
-      const res = await createCate(data);
+      const res = await createUserCate(data);
       if (res.status) {
         codeStatus.msg = '发布成功';
       } else {
@@ -40,7 +38,36 @@ routers.post('/add', async (ctx) => {
   } catch (error) {
     console.log(error)
     codeStatus.code = 500;
-    codeStatus.msg = '分类创建出错了';
+    codeStatus.msg = '分类关注出错了';
+  } finally {
+    ctx.body = codeStatus;
+  }
+});
+
+// 删除用户关注分类
+routers.get('/delfocus/:cid', async (ctx) => {
+  const { codeStatus, uid, params } = routerInit(ctx);
+  try {
+    if (uid) {
+      const data = {
+        uid: Number(uid),
+        cid: Number(params.cid),
+      };
+      const res = await deleteUserCate(data);
+      if (res) {
+        codeStatus.msg = '取消关注成功';
+      } else {
+        codeStatus.code = 400;
+        codeStatus.msg = res.msg;
+      }
+    } else {
+      codeStatus.code = 400;
+      codeStatus.msg = 'uid不存在';
+    }
+  } catch (error) {
+    console.log(error)
+    codeStatus.code = 500;
+    codeStatus.msg = '取消关注出错了';
   } finally {
     ctx.body = codeStatus;
   }
@@ -50,12 +77,7 @@ routers.get('/list', async (ctx) => {
   const { codeStatus, query, uid } = routerInit(ctx);
   try {
     let list = [];
-    if ( Number(query.private ) && uid) {
-      query.uid = uid;
-    }
-    if ( Number(query.private ) && Number(query.tid) ) {
-      query.uid = query.tid;
-    }
+    query.uid = uid;
     list = await getCateList(query);
     codeStatus.data = list;
   } catch (error) {
