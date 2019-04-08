@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2019-01-21 12:52:46
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-04-03 10:46:20
+ * @Last Modified time: 2019-04-04 13:35:19
  */
 // 用户关注分类表
 import sequelize from 'sequelize';
@@ -14,6 +14,7 @@ const Model = Sequelize.define('user_cate', {
   id: {
     primaryKey: true,
     type: sequelize.BIGINT,
+    autoIncrement: true,
   },
 
   uid: {
